@@ -1,0 +1,20 @@
+<div class="root" *ngIf="sidebarData.isFolder">
+  <div class="folder" (click)="onExpanded()">
+    <span>📂 {{sidebarData.name }}</span>
+    <div>
+      <button (click)="onAddButton($event, true)">Folder ➕</button>
+      <button (click)="onAddButton($event, false)">File ➕</button>
+    </div>
+  </div>
+  <div *ngIf="expanded" [ngStyle]="{'padding-left': '25px'}">
+      <div *ngIf="showInput.isVisible" class="input-container">
+        <span *ngIf="showInput.isFolder">📁</span>
+        <span *ngIf="!showInput.isFolder">🗄</span>
+        <input class="input" focus type="text" (blur)="focusOut()" (keydown)="onAddFolder($event)"/>
+      </div>
+    <div class="items" *ngFor="let item of sidebarData.items">
+      <app-sidebar [sidebarData]="item"></app-sidebar>
+    </div>
+  </div>
+</div>
+<div class="file" *ngIf="!sidebarData.isFolder">🗄 {{ sidebarData.name }}</div>
